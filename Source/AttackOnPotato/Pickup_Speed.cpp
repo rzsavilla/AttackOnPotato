@@ -9,6 +9,7 @@ APickup_Speed::APickup_Speed()
 	GetMesh()->SetSimulatePhysics(true);
 	fSpeed = 5000.0f;
 	fDuration = 2.0f;
+	sType = "Speed";
 }
 
 void APickup_Speed::Collect_Implementation() {

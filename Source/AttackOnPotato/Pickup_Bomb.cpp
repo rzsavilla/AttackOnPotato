@@ -6,6 +6,7 @@
 APickup_Bomb::APickup_Bomb() 
 {
 	GetMesh()->SetSimulatePhysics(true);
+	sType = "Bomb";
 }
 
 void APickup_Bomb::Collect_Implementation()

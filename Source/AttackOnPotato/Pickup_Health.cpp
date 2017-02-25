@@ -8,6 +8,7 @@ APickup_Health::APickup_Health()
 {
 	GetMesh()->SetSimulatePhysics(true);
 	iHealthValue = 10;
+	sType = "Health";
 }
 
 void APickup_Health::Collect_Implementation()
