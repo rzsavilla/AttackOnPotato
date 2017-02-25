@@ -5,6 +5,8 @@
 #include "GameFramework/Character.h"
 #include "AttackOnPotatoCharacter.generated.h"
 
+
+
 UCLASS(Blueprintable)
 class ATTACKONPOTATO_API AAttackOnPotatoCharacter : public ACharacter
 {
