@@ -26,7 +26,7 @@ void ASpawner_Pickups::BeginPlay()
 	Super::BeginPlay();
 
 	fSpawnDelay = FMath::FRandRange(fSpawnDelayMin, fSpawnDelayMax);
-	GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawner_Pickups::SpawnPickup, fSpawnDelay, false);
+	//GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawner_Pickups::SpawnPickup, fSpawnDelay, false);
 }
 
 // Called every frame
