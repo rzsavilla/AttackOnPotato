@@ -12,12 +12,15 @@ const FName AAttackOnPotatoPawn::MoveRightBinding("MoveRight");
 
 AAttackOnPotatoPawn::AAttackOnPotatoPawn()
 {	
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMesh(TEXT("/Game/Mannequin/Character/Mesh/SK_Mannequin.SK_Mannequin"));
 	// Create the mesh component
-	ShipMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
-	RootComponent = ShipMeshComponent;
-	ShipMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
-	ShipMeshComponent->SetStaticMesh(ShipMesh.Object);
+	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
+	RootComponent = SkeletalMeshComponent;
+	SkeletalMeshComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
+	SkeletalMeshComponent->SetSkeletalMesh(SkeletalMesh.Object);
 	
 	// Cache our sound effect
 	// static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
@@ -57,6 +60,9 @@ void AAttackOnPotatoPawn::SetupPlayerInputComponent(class UInputComponent* Playe
 
 void AAttackOnPotatoPawn::Tick(float DeltaSeconds)
 {
+
+	Super::Tick(DeltaSeconds);
+
 	// Find movement direction
 	const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
 	const float RightValue = GetInputAxisValue(MoveRightBinding);
