@@ -15,4 +15,12 @@ class ATTACKONPOTATO_API APickup_Speed : public APickup
 	
 public:
 	APickup_Speed();
+
+	void Collect_Implementation() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	float fDuration;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	float fSpeed;
 };

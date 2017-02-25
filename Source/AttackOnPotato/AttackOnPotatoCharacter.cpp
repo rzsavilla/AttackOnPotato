@@ -5,6 +5,7 @@
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
+#include "Pickup.h"
 
 
 // Sets default values
@@ -51,10 +52,22 @@ AAttackOnPotatoCharacter::AAttackOnPotatoCharacter()
 	CursorToWorld->DecalSize = FVector(16.0f, 32.0f, 32.0f);
 	CursorToWorld->SetRelativeRotation(FRotator(90.0f, 0.0f, 0.0f).Quaternion());
 
+	// Create Collection Shere
+	CollectionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere"));
+	CollectionSphere->SetSphereRadius(200.0f);
+	//Set Collection sphere for on overlap
+	CollectionSphere->OnComponentBeginOverlap.AddDynamic(this, &AAttackOnPotatoCharacter::OnOverlap);
+	CollectionSphere->SetupAttachment(RootComponent);
+
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
+
+	fSpeedBoostDuration = 0.0f;	//Time until speed boost ends
+	iNormalSpeed = 600.0f;
+	iHealth = 10;
+	iMaxHealth = 10;
 }
 
 // Called every frame
@@ -88,4 +101,70 @@ void AAttackOnPotatoCharacter::Tick(float DeltaSeconds)
 			CursorToWorld->SetWorldRotation(CursorR);
 		}
 	}
+}
+
+//Player will collect pickups within collection sphere
+void AAttackOnPotatoCharacter::CollectPickups()
+{
+	//Get All overlapping actors and store into array
+	TArray<AActor*> CollectedActors;
+	CollectionSphere->GetOverlappingActors(CollectedActors);
+
+	//Iterate through array (Foreach actor to collect)
+	for (int32 iCollected = 0; iCollected < CollectedActors.Num(); ++iCollected) {
+		//Cast actor to APickup
+		APickup* const TestPickup = Cast<APickup>(CollectedActors[iCollected]);
+		//If Cast successful
+		//If Pickup valid and active
+		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
+		{
+			TestPickup->Collect();	//Call the Collect function
+			//Deactivate pickup
+			TestPickup->SetActive(false);	//Prevent spam collections
+		}
+	}
+}
+
+void AAttackOnPotatoCharacter::OnOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor->IsA(APickup::StaticClass())) {
+		APickup* pickup = Cast<APickup>(OtherActor);
+		pickup->Collect();	//Collect Pickup
+	}
+}
+
+void AAttackOnPotatoCharacter::setHealth(int newHealth) {
+	iHealth = newHealth;
+}
+
+void AAttackOnPotatoCharacter::addHealth(int health) {
+	if ((iHealth + health) > iMaxHealth) {
+		iHealth = iMaxHealth;
+	}
+	iHealth += health;
+}
+
+void AAttackOnPotatoCharacter::setMaxHealth(int newMaxHealth) {
+	iMaxHealth = newMaxHealth;
+}
+
+void AAttackOnPotatoCharacter::setSpeed(int newSpeed) {
+	iSpeed = newSpeed;
+	GetCharacterMovement()->MaxWalkSpeed = newSpeed;
+}
+
+void AAttackOnPotatoCharacter::boostSpeed(int newSpeed, float duration) {
+	GetCharacterMovement()->MaxWalkSpeed = newSpeed;
+	fSpeedBoostDuration = duration;
+
+	//Timer to end speed boost
+	GetWorldTimerManager().SetTimer(SpeedBoostTimer, this, &AAttackOnPotatoCharacter::endSpeedBoost, fSpeedBoostDuration, false);
+}
+
+void AAttackOnPotatoCharacter::setMaxSpeed(int newSpeed) {
+	iMaxSpeed = newSpeed;
+}
+
+void AAttackOnPotatoCharacter::endSpeedBoost() {
+	GetCharacterMovement()->MaxWalkSpeed = iNormalSpeed;
 }

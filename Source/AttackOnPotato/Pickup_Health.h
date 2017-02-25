@@ -17,4 +17,10 @@ class ATTACKONPOTATO_API APickup_Health : public APickup
 public:
 	APickup_Health();
 	
+	void Collect_Implementation() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
+	int iHealthValue;
+private:
+
 };

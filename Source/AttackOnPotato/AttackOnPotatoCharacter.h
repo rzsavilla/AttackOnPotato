@@ -24,6 +24,36 @@ public:
 	/** Returns CursorToWorld subobject **/
 	FORCEINLINE class UDecalComponent* GetCursorToWorld() { return CursorToWorld; }
 
+	/** Sphere for collision when collecting */
+	FORCEINLINE class USphereComponent* GetCollectionSphere() const { return CollectionSphere;  }
+
+	/** Collection Spheeeeerrreee*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collect", meta = (AllowPrivateAccess = "true"))
+	class USphereComponent* CollectionSphere;
+
+	UFUNCTION(BlueprintCallable, Category = "Collect")
+	void OnOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	///////Player STATS FUNCTIONS//////////
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void setHealth(int newHealth);
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void addHealth(int health);
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void setMaxHealth(int newMaxHealth);
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void setSpeed(int newSpeed);
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void setMaxSpeed(int newMaxSpeed);
+
+	/**Start speed boost with new speed and add duration */
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	void boostSpeed(int newSpeed,float duration);
+
+protected:
+	/** Collect any pickups inside collection sphere */
+	UFUNCTION(BlueprintCallable, Category = "Pickups")
+	void CollectPickups();
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -36,4 +66,36 @@ private:
 	/** A decal that projects to the cursor location. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UDecalComponent* CursorToWorld;
+
+
+	////////Player STATS
+	//Player Health when zero player dies
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	int iHealth;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	int iMaxHealth;
+
+	//Player Current Move Speed
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	int iSpeed;
+
+	//Player Max Move Speed
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	int iMaxSpeed;
+
+	//Player Regular speed/Minumum
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	int iNormalSpeed;
+
+	//EndSpeedBoost
+	void endSpeedBoost();
+
+	//Player Regular speed/Minumum
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	float fSpeedBoostDuration;
+
+	//Power up timers
+	FTimerHandle SpeedBoostTimer;
+
 };
