@@ -1,0 +1,39 @@
+	GENERATED_BODY()
+	
+
+		APotatoAIController(const class FObjectInitializer& ObjectInitializer);
+
+	/* called whenever the controller possesses a character bot */
+	virtual void Possess(class APawn* InPawn) override;
+
+	virtual void UnPossess() override;
+
+	UBehaviorTreeComponent* BehaviorComp;
+	UBlackboardComponent* BlackboardComp;
+
+	UPROPERTY(Category = AI, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		FName TargetEnemyKeyName;
+
+	//UPROPERTY(Category = Ai, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), EditDefaultsOnly)
+	//FName CurrentWaypointKeyName;
+
+	UPROPERTY(Category = AI, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		FName BotTypeKeyName;
+
+
+public:
+	// TODO Create way points class 
+	//APotatoWayPoint* GetWaypoint();
+
+	// place holder till we get the actual character class 
+	ABaseCharacter* AAttackOnPotatoPawn();
+
+	//void SetWaypoint(APotatoWaypoint * NewWayPoint);
+
+	void SetTargetEnemy(APawn* NewTarget);
+
+
+	FORCEINLINE UBehaviorTreeComponent* GetBehaviorComp() const { return BehaviorComp };
+
+	FORCEINLINE UBlackboardComponent* GetBlackboardComp() const { return BlackboardComp };
+
