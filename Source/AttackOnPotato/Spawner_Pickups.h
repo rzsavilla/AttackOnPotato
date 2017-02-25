@@ -23,6 +23,12 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Spawning")
 	FVector GetRandomPointInVolume();
 
+	/**  Spawn specified pickups in box*/
+	UFUNCTION(BlueprintCallable, Category = "Spawning")
+	void Spawn();
+
+	UFUNCTION(BlueprintCallable, Category = "Spawning")
+	void setSpawnCount(int num);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -50,4 +56,9 @@ private:
 
 	/** Current spawn delay */
 	float fSpawnDelay;
+
+	/** Number of pickups to spawn */
+	int iSpawnCount;
+
+	void spawnMultiple(int num);
 };

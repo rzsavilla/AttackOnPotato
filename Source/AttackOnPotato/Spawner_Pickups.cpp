@@ -26,6 +26,8 @@ void ASpawner_Pickups::BeginPlay()
 	Super::BeginPlay();
 
 	fSpawnDelay = FMath::FRandRange(fSpawnDelayMin, fSpawnDelayMax);
+
+	//Will timed random spawn
 	//GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawner_Pickups::SpawnPickup, fSpawnDelay, false);
 }
 
@@ -42,6 +44,45 @@ FVector ASpawner_Pickups::GetRandomPointInVolume()
 	FVector SpawnExtent = WhereToSpawn->Bounds.BoxExtent;
 
 	return UKismetMathLibrary::RandomPointInBoundingBox(SpawnOrigin, SpawnExtent);
+}
+
+void ASpawner_Pickups::spawnMultiple(int num)
+{
+	for (int i = 0; i < num; i++) {
+		//If something is set to spawwn:
+		if (WhatToSpawn != NULL) {
+			//Check for valid world:
+			UWorld* const World = GetWorld();
+			if (World) {
+				//Set spawn parameters
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+				SpawnParams.Instigator = Instigator;
+
+				//Get a random location to spawn at
+				FVector SpawnLocation = GetRandomPointInVolume();
+
+				//Get a random rotation for the spawned item
+				FRotator SpawnRotation;
+				SpawnRotation.Yaw = FMath::FRand() * 360.0f;
+				SpawnRotation.Pitch = FMath::FRand() * 360.0f;
+				SpawnRotation.Roll = FMath::FRand() * 360.0f;
+
+				//Spawn pickup
+				APickup* const SpawnedPickup = World->SpawnActor<APickup>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
+			}
+		}
+	}
+}
+
+void ASpawner_Pickups::Spawn()
+{
+	spawnMultiple(iSpawnCount);
+}
+
+void ASpawner_Pickups::setSpawnCount(int num)
+{
+	iSpawnCount = num;
 }
 
 void ASpawner_Pickups::SpawnPickup() 
