@@ -103,6 +103,21 @@ void AAttackOnPotatoCharacter::Tick(float DeltaSeconds)
 	}
 }
 
+void AAttackOnPotatoCharacter::setTwoMultiplier(bool state)
+{
+	bMultiplierTwo = state;
+}
+
+void AAttackOnPotatoCharacter::setFiveMultiplier(bool state)
+{
+	bMultiplierFive = state;
+}
+
+void AAttackOnPotatoCharacter::setThreeMultiplier(bool state)
+{
+	bMultiplierTen = state;
+}
+
 //Player will collect pickups within collection sphere
 void AAttackOnPotatoCharacter::CollectPickups()
 {
@@ -159,6 +174,15 @@ void AAttackOnPotatoCharacter::boostSpeed(int newSpeed, float duration) {
 
 	//Timer to end speed boost
 	GetWorldTimerManager().SetTimer(SpeedBoostTimer, this, &AAttackOnPotatoCharacter::endSpeedBoost, fSpeedBoostDuration, false);
+}
+
+void AAttackOnPotatoCharacter::addBomb(int iNum)
+{
+}
+
+void AAttackOnPotatoCharacter::setMaxBomb(int iNum)
+{
+
 }
 
 void AAttackOnPotatoCharacter::setMaxSpeed(int newSpeed) {
