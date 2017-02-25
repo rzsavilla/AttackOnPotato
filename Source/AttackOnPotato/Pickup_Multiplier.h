@@ -16,6 +16,10 @@ class ATTACKONPOTATO_API APickup_Multiplier : public APickup
 public:
 	APickup_Multiplier();
 
+	void APickup_Multiplier::Collect_Implementation();
+
+
+	FString sType;
 private:
 	
 };
