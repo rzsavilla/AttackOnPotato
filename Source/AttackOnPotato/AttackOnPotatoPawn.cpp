@@ -12,6 +12,9 @@ const FName AAttackOnPotatoPawn::MoveRightBinding("MoveRight");
 
 AAttackOnPotatoPawn::AAttackOnPotatoPawn()
 {	
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
 	// Create the mesh component
 	ShipMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
@@ -57,6 +60,9 @@ void AAttackOnPotatoPawn::SetupPlayerInputComponent(class UInputComponent* Playe
 
 void AAttackOnPotatoPawn::Tick(float DeltaSeconds)
 {
+
+	Super::Tick(DeltaSeconds);
+
 	// Find movement direction
 	const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
 	const float RightValue = GetInputAxisValue(MoveRightBinding);
