@@ -34,13 +34,13 @@ protected:
 	virtual void BeginPlay() override;
 
 
+	/** Determines pickup to be spawned*/
 	UPROPERTY(EditAnywhere, Category = "Spawning")
 	TSubclassOf<class APickup> WhatToSpawn;
 
 	FTimerHandle SpawnTimer;
 
 	/** Minimum Spawn Delay */
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
 	float fSpawnDelayMin;
 
