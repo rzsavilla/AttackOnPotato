@@ -25,9 +25,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	void SetActive(bool PickUpState);
 
+
+	/** Function called when pickup is collected*/
+	UFUNCTION(BlueprintNativeEvent)
+	void Collect();
+	virtual void Collect_Implementation();
+
 	/** Returns pointer to pickup mesh*/
 	FORCEINLINE class UStaticMeshComponent* GetMesh() const { return PickupMesh; }
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
