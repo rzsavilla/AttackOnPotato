@@ -7,8 +7,8 @@
 
 const FName AAttackOnPotatoPawn::MoveForwardBinding("MoveForward");
 const FName AAttackOnPotatoPawn::MoveRightBinding("MoveRight");
-const FName AAttackOnPotatoPawn::FireForwardBinding("FireForward");
-const FName AAttackOnPotatoPawn::FireRightBinding("FireRight");
+// const FName AAttackOnPotatoPawn::FireForwardBinding("FireForward");
+// const FName AAttackOnPotatoPawn::FireRightBinding("FireRight");
 
 AAttackOnPotatoPawn::AAttackOnPotatoPawn()
 {	
@@ -20,8 +20,8 @@ AAttackOnPotatoPawn::AAttackOnPotatoPawn()
 	ShipMeshComponent->SetStaticMesh(ShipMesh.Object);
 	
 	// Cache our sound effect
-	static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
-	FireSound = FireAudio.Object;
+	// static ConstructorHelpers::FObjectFinder<USoundBase> FireAudio(TEXT("/Game/TwinStick/Audio/TwinStickFire.TwinStickFire"));
+	// FireSound = FireAudio.Object;
 
 	// Create a camera boom...
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -39,9 +39,9 @@ AAttackOnPotatoPawn::AAttackOnPotatoPawn()
 	// Movement
 	MoveSpeed = 1000.0f;
 	// Weapon
-	GunOffset = FVector(90.f, 0.f, 0.f);
-	FireRate = 0.1f;
-	bCanFire = true;
+	// GunOffset = FVector(90.f, 0.f, 0.f);
+	// FireRate = 0.1f;
+	// bCanFire = true;
 }
 
 void AAttackOnPotatoPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -51,8 +51,8 @@ void AAttackOnPotatoPawn::SetupPlayerInputComponent(class UInputComponent* Playe
 	// set up gameplay key bindings
 	PlayerInputComponent->BindAxis(MoveForwardBinding);
 	PlayerInputComponent->BindAxis(MoveRightBinding);
-	PlayerInputComponent->BindAxis(FireForwardBinding);
-	PlayerInputComponent->BindAxis(FireRightBinding);
+	// PlayerInputComponent->BindAxis(FireForwardBinding);
+	// PlayerInputComponent->BindAxis(FireRightBinding);
 }
 
 void AAttackOnPotatoPawn::Tick(float DeltaSeconds)
@@ -83,15 +83,15 @@ void AAttackOnPotatoPawn::Tick(float DeltaSeconds)
 	}
 	
 	// Create fire direction vector
-	const float FireForwardValue = GetInputAxisValue(FireForwardBinding);
-	const float FireRightValue = GetInputAxisValue(FireRightBinding);
-	const FVector FireDirection = FVector(FireForwardValue, FireRightValue, 0.f);
+	// const float FireForwardValue = GetInputAxisValue(FireForwardBinding);
+	// const float FireRightValue = GetInputAxisValue(FireRightBinding);
+	// const FVector FireDirection = FVector(FireForwardValue, FireRightValue, 0.f);
 
 	// Try and fire a shot
-	FireShot(FireDirection);
+	// FireShot(FireDirection);
 }
 
-void AAttackOnPotatoPawn::FireShot(FVector FireDirection)
+/* void AAttackOnPotatoPawn::FireShot(FVector FireDirection)
 {
 	// If we it's ok to fire again
 	if (bCanFire == true)
@@ -122,10 +122,10 @@ void AAttackOnPotatoPawn::FireShot(FVector FireDirection)
 			bCanFire = false;
 		}
 	}
-}
+} */
 
-void AAttackOnPotatoPawn::ShotTimerExpired()
+/* void AAttackOnPotatoPawn::ShotTimerExpired()
 {
 	bCanFire = true;
-}
+} */
 
