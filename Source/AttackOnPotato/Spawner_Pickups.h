@@ -29,13 +29,16 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Spawning")
 	void setSpawnCount(int num);
+
+	UFUNCTION(BlueprintCallable, Category = "Spawning")
+	void setSpawnPickup(TSubclassOf<class APickup> pickup);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 
 	/** Determines pickup to be spawned*/
-	UPROPERTY(EditAnywhere, Category = "Spawning")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
 	TSubclassOf<class APickup> WhatToSpawn;
 
 	FTimerHandle SpawnTimer;

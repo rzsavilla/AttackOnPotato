@@ -88,6 +88,11 @@ void ASpawner_Pickups::setSpawnCount(int num)
 	iSpawnCount = num;
 }
 
+void ASpawner_Pickups::setSpawnPickup(TSubclassOf<class APickup> pickup)
+{
+	this->WhatToSpawn = pickup;
+}
+
 void ASpawner_Pickups::SpawnPickup() 
 {
 	//If something is set to spawwn:
