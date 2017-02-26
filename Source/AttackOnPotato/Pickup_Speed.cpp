@@ -19,7 +19,7 @@ void APickup_Speed::Collect_Implementation() {
 	ACharacter* myCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 	AAttackOnPotatoCharacter* character = Cast<AAttackOnPotatoCharacter>(myCharacter);
 
-	character->boostSpeed(fSpeed, fDuration);
+	character->boostSpeed();
 
 	//Destroy the pickup
 	Destroy();
