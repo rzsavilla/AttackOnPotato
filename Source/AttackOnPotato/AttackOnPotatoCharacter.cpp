@@ -167,6 +167,7 @@ void AAttackOnPotatoCharacter::CollectPickups()
 		//If Pickup valid and active
 		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
 		{
+			TestPickup->NotifyType(TestPickup->getType());
 			TestPickup->Collect();	//Call the Collect function
 			//Deactivate pickup
 			TestPickup->SetActive(false);	//Prevent spam collections
