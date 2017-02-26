@@ -36,16 +36,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite , Category = "Pickup")
 	FString sType;
 
+	/** Returns sType*/
+	FORCEINLINE class FString GetSType() const { return sType; }
+
 	///** Notify blueprint this type pickup has been collected*/
 	//UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Pickup Type"))
 	//FString NotifyType();
 	//virtual FString NotifyType_Implementation();
 
-	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Pickup Type"))
+	/* UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Pickup Type"))
 	void NotifyType(FString& type);
 
 
-	FString& getType() { return sType;  }
+	FString& getType() { return sType;  } */
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

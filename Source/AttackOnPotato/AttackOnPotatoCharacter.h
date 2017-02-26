@@ -77,6 +77,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void throwBomb();
 
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Pickup Type"))
+	void NotifyType(const FString& type);
+
 protected:
 	/** Collect any pickups inside collection sphere */
 	UFUNCTION(BlueprintCallable, Category = "Pickups")

@@ -167,7 +167,7 @@ void AAttackOnPotatoCharacter::CollectPickups()
 		//If Pickup valid and active
 		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
 		{
-			TestPickup->NotifyType(TestPickup->getType());
+			NotifyType(TestPickup->GetSType());
 			TestPickup->Collect();	//Call the Collect function
 			//Deactivate pickup
 			TestPickup->SetActive(false);	//Prevent spam collections
@@ -179,7 +179,7 @@ void AAttackOnPotatoCharacter::OnOverlap(UPrimitiveComponent* OverlappedComp, AA
 {
 	if (OtherActor->IsA(APickup::StaticClass())) {
 		APickup* pickup = Cast<APickup>(OtherActor);
-		pickup->NotifyType(pickup->getType());
+		NotifyType(pickup->GetSType());
 		pickup->Collect();	//Collect Pickup
 	}
 }
