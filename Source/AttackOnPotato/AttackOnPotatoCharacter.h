@@ -80,10 +80,34 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Pickup Type"))
 	void NotifyType(const FString& type);
 
-protected:
+
 	/** Collect any pickups inside collection sphere */
 	UFUNCTION(BlueprintCallable, Category = "Pickups")
-	void CollectPickups();
+		void CollectPickups();
+
+	////////Player STATS////////////
+	//Player Health when zero player dies
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+		int iHealth;
+	/** Player max health*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+		int iMaxHealth;
+	/** Player Current Move Speed */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+		int iSpeed;
+	/**Player Max Move Speed */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+		int iMaxSpeed;
+	/** Player Regular speed/Minumum*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+		int iNormalSpeed;
+
+	//EndSpeedBoost
+	UFUNCTION(BlueprintCallable, Category = "Pickups")
+	void endSpeedBoost();
+
+protected:
+	
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -97,32 +121,8 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UDecalComponent* CursorToWorld;
 
-	////////Player STATS
-	//Player Health when zero player dies
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
-	int iHealth;
-
-	/** Player max health*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
-	int iMaxHealth;
-
-	/** Player Current Move Speed */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
-	int iSpeed;
-
-	/**Player Max Move Speed */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
-	int iMaxSpeed;
-
-	/** Player Regular speed/Minumum*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
-	int iNormalSpeed;
-
-	//EndSpeedBoost
-	void endSpeedBoost();
-
 	/**Player Regular speed/Minumum */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
 	float fSpeedBoostDuration;
 
 	//Power up timers
@@ -130,11 +130,11 @@ private:
 
 	//WEAPONS
 	/** Current number of bombs*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
 	int iBombs;
 
 	/** Maximum carriable bombs*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
 	int iMaxBombs;
 
 	/** Projectile class to spawn */

@@ -19,7 +19,7 @@ public:
 	
 	void Collect_Implementation() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
 	int iHealthValue;
 private:
 

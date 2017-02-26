@@ -65,8 +65,11 @@ AAttackOnPotatoCharacter::AAttackOnPotatoCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
 
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
+
 	fSpeedBoostDuration = 0.0f;	//Time until speed boost ends
-	iNormalSpeed = 600.0f;
+	iNormalSpeed = 250.0f;
+	iMaxSpeed = 500.0f;
 	iHealth = 10;
 	iMaxHealth = 10;
 }
@@ -192,7 +195,9 @@ void AAttackOnPotatoCharacter::addHealth(int health) {
 	if ((iHealth + health) > iMaxHealth) {
 		iHealth = iMaxHealth;
 	}
-	iHealth += health;
+	else {
+		iHealth += health;
+	}
 }
 
 void AAttackOnPotatoCharacter::setMaxHealth(int newMaxHealth) {
@@ -205,7 +210,7 @@ void AAttackOnPotatoCharacter::setSpeed(int newSpeed) {
 }
 
 void AAttackOnPotatoCharacter::boostSpeed(int newSpeed, float duration) {
-	GetCharacterMovement()->MaxWalkSpeed = newSpeed;
+	GetCharacterMovement()->MaxWalkSpeed = iMaxSpeed;
 	fSpeedBoostDuration = duration;
 
 	//Timer to end speed boost

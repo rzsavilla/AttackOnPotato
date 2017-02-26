@@ -6,7 +6,8 @@
 
 APickup_Health::APickup_Health()
 {
-	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetSimulatePhysics(false);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
 	iHealthValue = 10;
 	sType = "Health";
 }
@@ -18,8 +19,11 @@ void APickup_Health::Collect_Implementation()
 	ACharacter* myCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 	AAttackOnPotatoCharacter* character = Cast<AAttackOnPotatoCharacter>(myCharacter);
 
-	character->addHealth(iHealthValue);
+	if (character->iHealth + iHealthValue <= (character->iMaxHealth)) {
+		character->addHealth(iHealthValue);
+		//Destroy the pickup
+		Destroy();
+	}
 
-	//Destroy the pickup
-	Destroy();
+	//Do not pickup;
 }

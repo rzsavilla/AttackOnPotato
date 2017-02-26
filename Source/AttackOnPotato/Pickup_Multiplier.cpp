@@ -5,7 +5,8 @@
 
 APickup_Multiplier::APickup_Multiplier() 
 {
-	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetSimulatePhysics(false);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
 }
 
 void APickup_Multiplier::Collect_Implementation()

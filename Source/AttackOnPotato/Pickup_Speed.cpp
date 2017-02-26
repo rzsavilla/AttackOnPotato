@@ -6,7 +6,8 @@
 
 APickup_Speed::APickup_Speed()
 {
-	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetSimulatePhysics(false);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
 	fSpeed = 5000.0f;
 	fDuration = 2.0f;
 	sType = "Speed";

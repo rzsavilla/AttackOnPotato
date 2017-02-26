@@ -49,14 +49,26 @@ public:
 
 
 	FString& getType() { return sType;  } */
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	/** True when pickup can be used*/
 	bool bIsActive;
+
+	float fZPos;
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "PickupFloating", meta = (AllowPrivateAccess = "true"))
+		float fFloatHeight;
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "PickupFloating", meta = (AllowPrivateAccess = "true"))
+		float fFloatSpeed;
 private:
 	
+	float fCurrHeight;
+	bool bUp;
+
 	/** Mesh for the pickup */
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* PickupMesh;

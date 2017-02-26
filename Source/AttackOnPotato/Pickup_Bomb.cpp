@@ -5,7 +5,8 @@
 
 APickup_Bomb::APickup_Bomb() 
 {
-	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetSimulatePhysics(false);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
 	sType = "Bomb";
 }
 

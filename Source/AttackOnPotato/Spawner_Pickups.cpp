@@ -18,6 +18,8 @@ ASpawner_Pickups::ASpawner_Pickups()
 	//Set Default values
 	fSpawnDelayMin = 1.0f;
 	fSpawnDelayMax = 2.0f;
+
+	bInfiniteSpawn = false;
 }
 
 // Called when the game starts or when spawned
@@ -28,14 +30,15 @@ void ASpawner_Pickups::BeginPlay()
 	fSpawnDelay = FMath::FRandRange(fSpawnDelayMin, fSpawnDelayMax);
 
 	//Will timed random spawn
-	//GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawner_Pickups::SpawnPickup, fSpawnDelay, false);
+	if (bInfiniteSpawn) {
+		GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawner_Pickups::SpawnPickup, fSpawnDelay, false);
+	}
 }
 
 // Called every frame
 void ASpawner_Pickups::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 FVector ASpawner_Pickups::GetRandomPointInVolume()
@@ -63,10 +66,10 @@ void ASpawner_Pickups::spawnMultiple(int num)
 				FVector SpawnLocation = GetRandomPointInVolume();
 
 				//Get a random rotation for the spawned item
-				FRotator SpawnRotation;
-				SpawnRotation.Yaw = FMath::FRand() * 360.0f;
-				SpawnRotation.Pitch = FMath::FRand() * 360.0f;
-				SpawnRotation.Roll = FMath::FRand() * 360.0f;
+				FRotator SpawnRotation = GetActorRotation();
+				//SpawnRotation.Yaw = FMath::FRand() * 360.0f;
+				//SpawnRotation.Pitch = FMath::FRand() * 360.0f;
+				//SpawnRotation.Roll = FMath::FRand() * 360.0f;
 
 				//Spawn pickup
 				APickup* const SpawnedPickup = World->SpawnActor<APickup>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
@@ -101,10 +104,10 @@ void ASpawner_Pickups::SpawnPickup()
 			FVector SpawnLocation = GetRandomPointInVolume();
 
 			//Get a random rotation for the spawned item
-			FRotator SpawnRotation;
-			SpawnRotation.Yaw = FMath::FRand() * 360.0f;
-			SpawnRotation.Pitch = FMath::FRand() * 360.0f;
-			SpawnRotation.Roll = FMath::FRand() * 360.0f;
+			FRotator SpawnRotation = GetActorRotation();
+			//SpawnRotation.Yaw = FMath::FRand() * 360.0f;
+			//SpawnRotation.Pitch = FMath::FRand() * 360.0f;
+			//SpawnRotation.Roll = FMath::FRand() * 360.0f;
 
 			//Spawn pickup
 			APickup* const SpawnedPickup = World->SpawnActor<APickup>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
