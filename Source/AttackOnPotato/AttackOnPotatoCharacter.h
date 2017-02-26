@@ -50,7 +50,7 @@ public:
 
 	/**Start speed boost with new speed and add duration */
 	UFUNCTION(BlueprintCallable, Category = "Stats")
-	void boostSpeed(int newSpeed,float duration);
+	void boostSpeed();
 
 	//Weapons
 	UFUNCTION(BlueprintCallable, Category = "Weapons")

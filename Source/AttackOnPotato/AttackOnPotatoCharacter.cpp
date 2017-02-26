@@ -209,12 +209,12 @@ void AAttackOnPotatoCharacter::setSpeed(int newSpeed) {
 	GetCharacterMovement()->MaxWalkSpeed = newSpeed;
 }
 
-void AAttackOnPotatoCharacter::boostSpeed(int newSpeed, float duration) {
+void AAttackOnPotatoCharacter::boostSpeed() {
 	GetCharacterMovement()->MaxWalkSpeed = iMaxSpeed;
-	fSpeedBoostDuration = duration;
+	//fSpeedBoostDuration = duration;
 
 	//Timer to end speed boost
-	GetWorldTimerManager().SetTimer(SpeedBoostTimer, this, &AAttackOnPotatoCharacter::endSpeedBoost, fSpeedBoostDuration, false);
+	//GetWorldTimerManager().SetTimer(SpeedBoostTimer, this, &AAttackOnPotatoCharacter::endSpeedBoost, fSpeedBoostDuration, false);
 }
 
 void AAttackOnPotatoCharacter::addBomb(int iNum)
