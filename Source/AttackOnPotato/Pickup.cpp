@@ -20,10 +20,11 @@ APickup::APickup()
 	bIsActive = true;	//Default pickup is active
 }
 
-FString APickup::NotifyType_Implementation()
-{
-	return sType;
-}
+//FString APickup::NotifyType_Implementation()
+//{
+	//return sType;
+//}
+
 
 // Called when the game starts or when spawned
 void APickup::BeginPlay()

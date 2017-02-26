@@ -5,5 +5,9 @@
 
 UThrownProjectile::UThrownProjectile()
 {
-
+	this->InitialSpeed = 3000.0f;
+	this->MaxSpeed = 3000.0f;
+	this->bRotationFollowsVelocity = true;
+	this->bShouldBounce = true;
+	this->Bounciness = 0.3f;
 }

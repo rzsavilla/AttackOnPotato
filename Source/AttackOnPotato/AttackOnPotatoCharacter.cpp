@@ -6,6 +6,7 @@
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
 #include "Pickup.h"
+#include "ThrownProjectile.h"
 
 
 // Sets default values
@@ -118,6 +119,39 @@ void AAttackOnPotatoCharacter::setThreeMultiplier(bool state)
 	bMultiplierTen = state;
 }
 
+void AAttackOnPotatoCharacter::throwBomb()
+{
+	// try and fire a projectile
+		if (ProjectileClass != NULL)
+		{
+			// Get the camera transform
+			FVector CameraLoc;
+			FRotator CameraRot;
+			GetActorEyesViewPoint(CameraLoc, CameraRot);
+			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the camera to find the final muzzle position
+			//FVector const MuzzleLocation = CameraLoc + FTransform(CameraRot).TransformVector(MuzzleOffset);
+			FVector const MuzzleLocation = CameraLoc;
+			//MuzzleLocation = CameraLoc
+			FRotator MuzzleRotation = CameraRot;
+			MuzzleRotation.Pitch += 10.0f;          // skew the aim upwards a bit
+			UWorld* const World = GetWorld();
+			if (World)
+			{
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+				SpawnParams.Instigator = Instigator;
+				// spawn the projectile at the muzzle
+				UThrownProjectile* const Projectile = World->SpawnActor<UThrownProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
+				if (Projectile)
+				{
+					// find launch direction
+					FVector const LaunchDir = MuzzleRotation.Vector();
+					//Projectile->InitVelocity(LaunchDir);
+				}
+			}
+		}
+}
+
 //Player will collect pickups within collection sphere
 void AAttackOnPotatoCharacter::CollectPickups()
 {
@@ -144,6 +178,7 @@ void AAttackOnPotatoCharacter::OnOverlap(UPrimitiveComponent* OverlappedComp, AA
 {
 	if (OtherActor->IsA(APickup::StaticClass())) {
 		APickup* pickup = Cast<APickup>(OtherActor);
+		pickup->NotifyType(pickup->getType());
 		pickup->Collect();	//Collect Pickup
 	}
 }

@@ -74,6 +74,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Stats")
 	void setThreeMultiplier(bool state);
 
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void throwBomb();
+
 protected:
 	/** Collect any pickups inside collection sphere */
 	UFUNCTION(BlueprintCallable, Category = "Pickups")
@@ -131,4 +134,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Status", meta = (AllowPrivateAccess = "true"))
 	int iMaxBombs;
 
+	/** Projectile class to spawn */
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	TSubclassOf<class UThrownProjectile> ProjectileClass;
 };
