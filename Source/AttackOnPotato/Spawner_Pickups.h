@@ -35,7 +35,7 @@ protected:
 
 
 	/** Determines pickup to be spawned*/
-	UPROPERTY(EditAnywhere, Category = "Spawning")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
 	TSubclassOf<class APickup> WhatToSpawn;
 
 	FTimerHandle SpawnTimer;
